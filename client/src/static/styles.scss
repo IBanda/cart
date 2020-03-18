@@ -1,0 +1,449 @@
+@import "variables";
+@import "mixin";
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/*
+* NAVIGATION
+*/
+
+.navWrapper {
+    background-color: $primary;
+    padding: 10px;
+    .navMenu {
+        @include alignCenter;
+        justify-content: space-between;
+        .rightContainer {
+            @include alignCenter;
+            position: relative;
+            .menuLinks {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+                a {
+                    color: $black;
+                    text-transform: uppercase;
+                }
+            }
+            .cartWrapper {
+                width: 60px;
+                height: 60px;
+                cursor: pointer;
+                position: relative;
+                @include alignCenter;
+                justify-content: center;
+                border: 1px solid $lightGrey;
+                .cart {
+                    width: 20px;
+                }
+                .cartCounter {
+                    width: 20px;
+                    height: 20px;
+                    background-color: $secondary;
+                    @include alignCenter;
+                    justify-content: center;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: -10px;
+                    right: 5px;
+                    p {
+                        font-size: 10px;
+                        font-weight: 600;
+                        color: $white;
+                        margin: 0;
+                    }
+                }
+                &:hover {
+                    background-color: $white;
+                    .cartDropdown {
+                        visibility: visible;
+                        transition: 30s visibility ease-in;
+                        transition-delay: 0.2s;
+                    }
+                }
+                .cartDropdown {
+                    visibility: hidden;
+                    position: absolute;
+                    top: 55px;
+                    right: -1px;
+                    max-width: 300px;
+                    width: 300px;
+                    border: 1px solid $lightGrey;
+                    background-color: $white;
+                    z-index: 20;
+                    .emptyCart {
+                        text-align: center;
+                        padding: 20px;
+                        img {
+                            width: 60px;
+                            margin-bottom: 10px;
+                        }
+                        p {
+                            text-transform: uppercase;
+                        }
+                    }
+                    .filledCart {
+                        margin: 0;
+                        padding: 0;
+                        max-height: 250px;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+                        list-style: none;
+                        .topCartContainer {
+                            display: flex;
+                            padding: 20px 10px;
+                            position: relative;
+                            border-bottom: 1px dotted $lightGrey;
+                            .productDetail {
+                                padding: 0 20px;
+                            }
+                            .itemRemove {
+                                position: absolute;
+                                margin: 0 10px;
+                                right: 6px;
+                                top: 20px;
+                                border: none;
+                                background-color: inherit;
+                                padding: none;
+                                outline: none;
+                            }
+                            img {
+                                max-width: 50px;
+                                width: 100%;
+                                margin-right: 10px;
+                            }
+                            p {
+                                margin-bottom: 5px;
+                            }
+                            a {
+                                color: $black;
+                                text-decoration: none;
+                            }
+                            span {
+                                margin: 0 5px;
+                            }
+                        }
+                    }
+                    .bottomCartContainer {
+                        padding: 10px 10px;
+                        button,
+                        link {
+                            text-transform: uppercase;
+                            border: none;
+                            display: block;
+                            font-weight: 600;
+                            color: $white;
+                            width: 100%;
+                            margin-top: 10px;
+                            padding: 15px 0px;
+                        }
+                        .viewCartBtn {
+                            text-align: center;
+                            text-transform: uppercase;
+                            border: none;
+                            display: block;
+                            font-weight: 600;
+                            color: $white;
+                            width: 100%;
+                            margin-top: 10px;
+                            padding: 15px 0px;
+                            background-color: $lightGrey;
+                        }
+                        .checkoutBtn {
+                            background-color: $black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/*
+* PRODUCT SECTION
+*/
+
+.productSection {
+    padding: 5% 0;
+    .productCard {
+        .productImage {
+            max-width: 250px;
+            width: 100%;
+            margin-bottom: 10px;
+            cursor: pointer;
+            &:hover {
+                transform: rotateX(360deg);
+            }
+        }
+        .productDetails {
+            .productCategory {
+                @include alignCenter;
+                margin-bottom: 10px;
+                padding-right: 14px;
+                justify-content: space-between;
+                p {
+                    text-transform: uppercase;
+                    margin: 0;
+                    color: $secondary;
+                }
+                svg {
+                    color: $secondary;
+                    width: 12px;
+                    cursor: pointer;
+                    fill: $secondary;
+                }
+            }
+            a {
+                color: $black;
+            }
+        }
+    }
+}
+
+
+/*
+* CART MODAL
+*/
+
+.modalWrapper {
+    background-color: rgba($color: $black, $alpha: 0.4);
+    @include alignCenter;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    .modalContainer {
+        width: 800px;
+        .modalLeft {
+            padding: 0;
+            .modalProductImage {
+                width: 100%;
+            }
+        }
+        .modalRight {
+            position: relative;
+            background-color: $white;
+            padding-top: 20px;
+            h2,
+            h3 {
+                margin: 20px 0;
+            }
+            form {
+                margin: 20px 0;
+                input {
+                    border: none;
+                    padding: 20px 0;
+                    text-align: center;
+                    width: 70px;
+                    outline: none;
+                    border-bottom: 2px solid $lightGrey;
+                    font-size: 17px;
+                    font-weight: 600;
+                }
+                button {
+                    background-color: $black;
+                    color: $white;
+                    text-transform: uppercase;
+                    padding: 20px;
+                    margin-left: 10px;
+                    border: none;
+                }
+            }
+            .productCat {
+                text-transform: uppercase;
+                display: inline-block;
+                margin-right: 5px;
+                &+span {
+                    color: $secondary;
+                    text-transform: uppercase;
+                }
+            }
+            .modalClose {
+                background-color: $secondary;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                @include alignCenter;
+                justify-content: center;
+                position: absolute;
+                cursor: pointer;
+                top: -30px;
+                right: -30px;
+                p {
+                    color: $white;
+                    margin: 0;
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+*  SHOPPING CART TABLE
+*/
+
+.shoppingCart {
+    h1 {
+        text-align: center;
+        text-transform: capitalize;
+        margin: 5% 0;
+        font-size: 3rem;
+    }
+    .shoppingCartTable {
+        width: 100%;
+        thead {
+            text-transform: uppercase;
+            border-bottom: 2px solid $black;
+        }
+        th,
+        td {
+            text-align: center;
+            margin-right: 20px;
+        }
+        tbody {
+            tr {
+                border-bottom: 1px dotted $lightGrey;
+                padding: 20px;
+                height: 100px;
+            }
+            .productCol {
+                position: relative;
+                text-align: left;
+                .shoppingCartImg {
+                    max-width: 50px;
+                    width: 100%;
+                    margin-right: 20px;
+                }
+                button {
+                    background-color: inherit;
+                    border: none;
+                    padding-left: 5px;
+                    margin-right: 20px;
+                    outline: none;
+                }
+            }
+            .quantityInput {
+                border: none;
+                padding: 10px 0;
+                text-align: center;
+                width: 70px;
+                outline: none;
+                border-bottom: 2px solid $lightGrey;
+                font-size: 17px;
+                font-weight: 600;
+            }
+        }
+        .noBorder {
+            border: none;
+            form {
+                display: flex;
+                justify-content: space-between;
+                input,
+                button {
+                    height: 50px;
+                }
+                button {
+                    text-transform: uppercase;
+                    width: 150px;
+                    border: none;
+                    font-weight: 600;
+                }
+                .couponBtn {
+                    background-color: $black;
+                    color: $white;
+                    margin-left: 20px;
+                }
+                .updateBtn {
+                    background-color: grey;
+                    color: $white;
+                    align-self: end;
+                }
+            }
+        }
+    }
+    .cartTotalsWrapper {
+        border-left: 1px solid lightgray;
+        padding: 0 30px;
+        .cartTotals {
+            width: 75%;
+            thead {
+                border-bottom: 2px solid $black;
+            }
+            th,
+            tr {
+                text-transform: uppercase;
+            }
+            td {
+                height: 40px;
+                &+td {
+                    text-align: right;
+                }
+            }
+            .shippingRow {
+                border-top: 1px dotted $lightGrey;
+                height: 70px;
+                border-bottom: 1px dotted $lightGrey;
+            }
+            button {
+                width: 100%;
+                background-color: $secondary;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: $white;
+                padding: 20px;
+                border: none;
+            }
+            span {
+                text-transform: none;
+            }
+        }
+    }
+}
+
+.popUp {
+    background-color: $secondary;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    @include alignCenter;
+    justify-content: space-between;
+    svg {
+        max-width: 30px;
+        width: 100%;
+        fill: $white;
+        margin-right: 10px;
+    }
+    div {
+        @include alignCenter;
+        p {
+            margin: 0;
+            color: $white;
+            text-transform: uppercase;
+        }
+    }
+    a {
+        color: $white;
+        text-transform: uppercase;
+        text-decoration: underline;
+    }
+}
